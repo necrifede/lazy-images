@@ -5,9 +5,69 @@
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Vite + React + TS</title>
+    <style>
+      body {
+        margin: 0;
+      }
+      /* .grid {
+        display: grid;
+        grid-template-columns: 1fr;
+      } */
+      
+      img {
+        width: 100vw;
+        height: 100vh;
+        /* aspect-ratio: 2/1; */
+        display: block;
+        /* object-position: bottom; */
+        object-fit: cover;
+      }
+      
+      .blur-load {
+        
+        width: 100vw;
+        height: 100vh;
+        /* border: 2px dashed red; */
+        background-size: cover;
+        /* background-position: center; */
+        background-image: url('2636601-small.jpg')
+      }
+
+      .blur-load.loaded > img {
+        opacity: 1;
+      }
+
+      .blur-load > img {
+        opacity: 0;
+        transition: opacity 300ms ease-in-out;
+      }
+
+    </style>
   </head>
   <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
+    <!-- <div > -->
+      <div class="blur-load" >
+        <img src="2636601.jpg" loading="lazy"/>
+      </div>
+      <script>
+        const blurDiv = document.querySelectorAll('.blur-load')
+        blurDiv.forEach(div => {
+          const img = div.querySelector('img')
+
+          function loaded() {
+            div.classList.add("loaded")
+          }
+
+          if (img.complete) {
+            loaded()
+          } else {
+            img.addEventListener('load', loaded)
+          }
+        })
+      </script>
+      <!-- <img src="2636601.jpg" loading="lazy"/> -->
+    <!-- </div> -->
+    <!-- <div id="root"></div> -->
+    <!-- <script type="module" src="/src/main.tsx"></script> -->
   </body>
 </html>
