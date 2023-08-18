@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -13,7 +13,7 @@
         display: grid;
         grid-template-columns: 1fr;
       } */
-      
+
       img {
         width: 100vw;
         height: 100vh;
@@ -22,15 +22,41 @@
         /* object-position: bottom; */
         object-fit: cover;
       }
-      
+
+      .blur-load::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        animation: pulse 2s infinite;
+        background-color: rgba(255, 255, 255, 0.1);
+      }
+
+      .blur-load.loaded::before {
+        content: none;
+        animation: none;
+      }
+
+      @keyframes pulse {
+        0% {
+          background-color: rgba(255, 255, 255, 0);
+        } 
+        50% {
+          background-color: rgba(255, 255, 255, 0.15);
+
+        }
+        100% {
+          background-color: rgba(255, 255, 255, 0);
+
+        }
+      }
+
       .blur-load {
-        
         width: 100vw;
         height: 100vh;
         /* border: 2px dashed red; */
         background-size: cover;
         /* background-position: center; */
-        background-image: url('2636601-small.jpg')
+        background-image: url("2636601-small.jpg");
       }
 
       .blur-load.loaded > img {
@@ -41,31 +67,30 @@
         opacity: 0;
         transition: opacity 300ms ease-in-out;
       }
-
     </style>
   </head>
   <body>
     <!-- <div > -->
-      <div class="blur-load" >
-        <img src="2636601.jpg" loading="lazy"/>
-      </div>
-      <script>
-        const blurDiv = document.querySelectorAll('.blur-load')
-        blurDiv.forEach(div => {
-          const img = div.querySelector('img')
+    <div class="blur-load">
+      <img src="2636601.jpg" loading="lazy" />
+    </div>
+    <script>
+      const blurDiv = document.querySelectorAll(".blur-load");
+      blurDiv.forEach((div) => {
+        const img = div.querySelector("img");
 
-          function loaded() {
-            div.classList.add("loaded")
-          }
+        function loaded() {
+          div.classList.add("loaded");
+        }
 
-          if (img.complete) {
-            loaded()
-          } else {
-            img.addEventListener('load', loaded)
-          }
-        })
-      </script>
-      <!-- <img src="2636601.jpg" loading="lazy"/> -->
+        if (img.complete) {
+          loaded();
+        } else {
+          img.addEventListener("load", loaded);
+        }
+      });
+    </script>
+    <!-- <img src="2636601.jpg" loading="lazy"/> -->
     <!-- </div> -->
     <!-- <div id="root"></div> -->
     <!-- <script type="module" src="/src/main.tsx"></script> -->
